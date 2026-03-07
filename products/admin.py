@@ -1,7 +1,7 @@
 from ipaddress import collapse_addresses
 
 from django.contrib import admin
-from .models import Product, Category
+from .models import Product, Category, Review
 
 # Register your models here.
 # admin.site.register(Product)
@@ -11,8 +11,13 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name',]
     search_fields = ['name']
 
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 1  # Скільки пустих форм показувати
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    inlines = [ReviewInline]
     list_display = ['name', 'category', 'price', 'in_stock', 'created_at', 'colored_status']
     list_filter = ['category', 'in_stock', 'created_at']
     autocomplete_fields = ['category']
@@ -34,6 +39,7 @@ class ProductAdmin(admin.ModelAdmin):
             "classes": ('collapse',)
         }),
     )
+
 
     def colored_status(self, obj):
         if obj.in_stock:

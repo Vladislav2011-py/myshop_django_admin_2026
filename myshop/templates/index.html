@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}
+Myshop - Магазин
+{% endblock %}
+
+{% block content %}
+
+<section class="catalog">
+
+    <div class="product">
+        <h3>Хліб</h3>
+        <p>Свіжий пшеничний хліб</p>
+        <span class="price">25 грн</span>
+        <button onclick="buyProduct('Хліб')">Купити</button>
+    </div>
+
+    <div class="product">
+        <h3>Цукор</h3>
+        <p>Білий цукор 1 кг</p>
+        <span class="price">40 грн</span>
+        <button onclick="buyProduct('Цукор')">Купити</button>
+    </div>
+
+    <div class="product">
+        <h3>Молоко</h3>
+        <p>Молоко 2.5%</p>
+        <span class="price">38 грн</span>
+        <button onclick="buyProduct('Молоко')">Купити</button>
+    </div>
+
+    <div class="product">
+        <h3>Морква</h3>
+        <p>Свіжа морква</p>
+        <span class="price">18 грн</span>
+        <button onclick="buyProduct('Морква')">Купити</button>
+    </div>
+
+    <div class="product">
+        <h3>Буряк</h3>
+        <p>Червоний буряк</p>
+        <span class="price">20 грн</span>
+        <button onclick="buyProduct('Буряк')">Купити</button>
+    </div>
+
+    <div class="product">
+        <h3>Мандарини</h3>
+        <p>Солодкі мандарини</p>
+        <span class="price">75 грн</span>
+        <button onclick="buyProduct('Мандарини')">Купити</button>
+    </div>
+
+    <div class="product">
+        <h3>Яблуко</h3>
+        <p>Свіжі яблука</p>
+        <span class="price">30 грн</span>
+        <button onclick="buyProduct('Яблуко')">Купити</button>
+    </div>
+
+    <div class="product">
+        <h3>Вода</h3>
+        <p>Мінеральна вода</p>
+        <span class="price">22 грн</span>
+        <button onclick="buyProduct('Вода')">Купити</button>
+    </div>
+
+    <div class="product">
+        <h3>Арбуз</h3>
+        <p>Соковитий арбуз</p>
+        <span class="price">90 грн</span>
+        <button onclick="buyProduct('Арбуз')">Купити</button>
+    </div>
+
+    <div class="product">
+        <h3>Банани</h3>
+        <p>Стиглі банани</p>
+        <span class="price">65 грн</span>
+        <button onclick="buyProduct('Банани')">Купити</button>
+    </div>
+
+</section>
+
+{% endblock %}
