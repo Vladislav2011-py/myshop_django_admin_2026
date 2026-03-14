@@ -18,9 +18,21 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
+from products import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name='home'),
+
+    path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+
+    path('categories/', views.categories, name='categories'),
+
+    path('category/<int:category_id>/', views.category_products, name='category_products'),
+
+    path('cart/', views.cart_view, name='cart'),
+
+    path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

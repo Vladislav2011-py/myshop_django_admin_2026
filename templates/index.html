@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}
+Myshop
+{% endblock %}
+
+{% block content %}
+
+<h2>Каталог товарів</h2>
+
+<section class="catalog">
+
+{% for product in products %}
+
+<div class="product">
+
+    <h3>{{ product.name }}</h3>
+
+    <p>{{ product.description }}</p>
+
+    <p class="price">{{ product.price }} грн</p>
+
+    <p>
+        Категорія: {{ product.category.name }}
+    </p>
+
+    {% if product.in_stock %}
+        <span class="in-stock">В наявності</span>
+
+        <form action="{% url 'add_to_cart' product.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Додати в кошик</button>
+        </form>
+
+    {% else %}
+        <span class="out-stock">Немає в наявності</span>
+    {% endif %}
+
+    <br><br>
+
+    <a href="{% url 'product_detail' product.id %}">
+        Детальніше
+    </a>
+
+</div>
+
+{% endfor %}
+
+</section>
+
+{% endblock %}
