@@ -4,19 +4,55 @@
 
 <h2>Кошик</h2>
 
-{% if products %}
+{% if cart_items %}
 
-<ul>
+<table>
+<tr>
+    <th>Товар</th>
+    <th>Кількість</th>
+    <th>Ціна</th>
+    <th>Дії</th>
+</tr>
 
-{% for product in products %}
+{% for item in cart_items %}
 
-<li>
-{{ product.name }} — {{ product.price }} грн
-</li>
+<tr>
+    <td>{{ item.product.name }}</td>
+
+    <td>
+        {{ item.quantity }}
+    </td>
+
+    <td>
+        {{ item.total }} грн
+    </td>
+
+    <td>
+
+        <!-- Зменшити -->
+        <form action="{% url 'decrease_quantity' item.product.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">➖</button>
+        </form>
+
+        <!-- Збільшити -->
+        <form action="{% url 'increase_quantity' item.product.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">➕</button>
+        </form>
+
+        <!-- Видалити -->
+        <form action="{% url 'remove_from_cart' item.product.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">❌</button>
+        </form>
+
+    </td>
+</tr>
 
 {% endfor %}
 
-</ul>
+</table>
 
 <h3>Разом: {{ total }} грн</h3>
 

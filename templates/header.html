@@ -5,10 +5,14 @@
 <nav>
 
 <a href="/">Товари</a>
-
 <a href="/categories/">Категорії</a>
 
-<a href="/cart/">Кошик</a>
+<a href="/cart/" class="cart-icon">
+    🛒 Кошик
+    {% if cart_count > 0 %}
+        <span class="cart-count">{{ cart_count }}</span>
+    {% endif %}
+</a>
 
 </nav>
 

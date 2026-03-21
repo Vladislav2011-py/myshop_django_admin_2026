@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import EmailField, CharField
+
 
 # Create your models here.
 class Category(models.Model):
@@ -38,3 +40,28 @@ class Review(models.Model):
     author = models.CharField(max_length=100)
     text = models.TextField()
     rating = models.IntegerField(null=True, blank=True)
+
+class Order (models.Model):
+    list_products = []
+
+    order_number = models.CharField(
+        max_length=50,
+        unique=True,
+        verbose_name='Номер транзакції'
+    )
+
+    customer_name = models.CharField(
+        max_length=200,
+        verbose_name=''
+    )
+
+    email_field = models.EmailField(
+        max_length=100,
+        verbose_name='Email покупця'
+    )
+
+    customer_phone = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name='Email покупця'
+    )
