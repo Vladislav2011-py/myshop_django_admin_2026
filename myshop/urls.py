@@ -36,7 +36,7 @@ from products import views
 # Основний список маршрутів сайту
 urlpatterns = [
 
-    # Адмінка Django (/admin/)
+    # Адмін-панель (http://127.0.0.1:8000/admin/)
     path('admin/', admin.site.urls),
 
     # Головна сторінка (каталог товарів)
@@ -46,35 +46,48 @@ urlpatterns = [
     # Наприклад: /product/1/
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),
 
-    # Список усіх категорій
+    # Список всіх категорій
     # /categories/
     path('categories/', views.categories, name='categories'),
 
-    # Товари певної категорії
-    # /category/2/
+    # Товари певної категорії (category/2/)
     path('category/<int:category_id>/', views.category_products, name='category_products'),
 
     # Сторінка кошика
     # /cart/
     path('cart/', views.cart_view, name='cart'),
 
-    # ➕ Збільшити кількість товару в кошику
-    # /increase/1/
     path('increase/<int:product_id>/', views.increase_quantity, name='increase_quantity'),
 
-    # ➖ Зменшити кількість товару
-    # /decrease/1/
+    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+
     path('decrease/<int:product_id>/', views.decrease_quantity, name='decrease_quantity'),
 
-    # ❌ Повністю видалити товар з кошика
-    # /remove-from-cart/1/
     path('remove-from-cart/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
 
-    path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    # URL для збільшення кількості товару в кошику
+    # path('increase/<int:product_id>/', views.increase_quantity, name='increase_quantity'),
+
+    # 'increase/' — шлях у браузері (наприклад: /increase/1/)
+    # <int:product_id> — динамічний параметр (ID товару)
+    # views.increase_quantity — функція, яка виконається
+    # name='increase_quantity' — ім’я для використання в шаблонах
+
+    # URL для зменшення кількості товару
+    # path('decrease/<int:product_id>/', views.decrease_quantity, name='decrease_quantity'),
+
+    # 'decrease/' — шлях (наприклад: /decrease/1/)
+    # <int:product_id> — ID товару
+    # views.decrease_quantity — функція, яка зменшує кількість
+    # name='decrease_quantity' — ім’я для {% url %} у HTML
+
+    # Видалити товар з кошика
+    # path('remove-from-cart/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
 ]
 
 
 # Додаємо обробку медіа-файлів (зображень) у режимі розробки
 # MEDIA_URL — URL доступу до файлів
 # MEDIA_ROOT — папка, де вони зберігаються
+# Працює тільки в режимі розробки (DEBUG=True)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

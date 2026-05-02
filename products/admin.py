@@ -1,10 +1,48 @@
 from ipaddress import collapse_addresses
 
 from django.contrib import admin
-from .models import Product, Category, Review
+from .models import Product, Category, Review, Order, OrderItem, CartItem
 
 # Register your models here.
 # admin.site.register(Product)
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'order_number',
+        'customer_name',
+        'customer_email',
+        'customer_phone',
+        'delivery_address',
+        'total_amount',
+        'status',
+        'liqpay_payment_id',
+        'liqpay_status',
+        'created_at',
+        'updated_at'
+    )
+
+    list_filter = ('order_number', 'status')
+
+    search_fields = (
+        'order_number',
+        'customer_name',
+        'customer_email',
+        'customer_phone',
+        'delivery_address',
+        'total_amount',
+        'status')
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = (
+        'order',
+        'product',
+        'product_name',
+        'product_price',
+        'quantity'
+    )
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -58,3 +96,18 @@ class ProductAdmin(admin.ModelAdmin):
         queryset.update(in_stock=False)
         self.message_user(request, "Товари позначено як 'Немає в наявності'")
     make_out_of_stock.short_description = "Позначити як 'Немає в наявності'"
+
+@admin.register(CartItem)
+
+class CartItemAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'session_key',
+        'product',
+        'quantity',
+        'added_at'
+    )
+
+    list_filter = ('product',)
+
+    search_fields = ('product',)

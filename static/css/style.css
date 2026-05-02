@@ -1,3 +1,4 @@
+
 body{
     margin:0;
     font-family: Arial;
@@ -79,4 +80,18 @@ button{
     border-radius: 50%;
     padding: 3px 7px;
     font-size: 12px;
+}
+
+.quantity-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.quantity-controls a {
+    padding: 5px 10px;
+    background: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
 }

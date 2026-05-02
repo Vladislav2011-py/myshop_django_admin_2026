@@ -27,9 +27,13 @@ Myshop
     {% if product.in_stock %}
         <span class="in-stock">В наявності</span>
 
-        <form action="{% url 'add_to_cart' product.id %}" method="post">
+        <form action="{% url 'increase_quantity' product.id %}" method="post">
             {% csrf_token %}
-            <button type="submit">Додати в кошик</button>
+            <button type="submit">Додати в кошик/Збільшити кількість</button>
+        </form>
+        <form action="{% url 'decrease_quantity' product.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Зменшити кількість в кошик</button>
         </form>
 
     {% else %}

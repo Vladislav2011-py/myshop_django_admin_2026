@@ -2,66 +2,123 @@
 
 {% block content %}
 
-<h2>Кошик</h2>
+<h1>Кошик</h1>
 
 {% if cart_items %}
 
-<table>
-<tr>
-    <th>Товар</th>
-    <th>Кількість</th>
-    <th>Ціна</th>
-    <th>Дії</th>
-</tr>
+<div class="cart-container">
 
-{% for item in cart_items %}
+    {% for item in cart_items %}
+    <div class="cart-item">
 
-<tr>
-    <td>{{ item.product.name }}</td>
+        <h3>{{ item.product.name }}</h3>
 
-    <td>
-        {{ item.quantity }}
-    </td>
+        <p>{{ item.product.description }}</p>
 
-    <td>
-        {{ item.total }} грн
-    </td>
+        <p><strong>Ціна:</strong> {{ item.product.price }} грн</p>
 
-    <td>
+        <!-- Кількість -->
+        <div class="quantity-controls">
 
-        <!-- Зменшити -->
-        <form action="{% url 'decrease_quantity' item.product.id %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">➖</button>
-        </form>
+            <a href="{% url 'decrease_quantity' item.product.id %}" class="btn">−</a>
 
-        <!-- Збільшити -->
-        <form action="{% url 'increase_quantity' item.product.id %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">➕</button>
-        </form>
+            <span class="quantity">{{ item.quantity }}</span>
+
+            <a href="{% url 'increase_quantity' item.product.id %}" class="btn">+</a>
+
+        </div>
+
+        <p><strong>Сума:</strong> {{ item.total }} грн</p>
 
         <!-- Видалити -->
-        <form action="{% url 'remove_from_cart' item.product.id %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">❌</button>
-        </form>
+        <a href="{% url 'remove_from_cart' item.product.id %}" class="remove-btn">
+            Видалити
+        </a>
 
-    </td>
-</tr>
+    </div>
+    {% endfor %}
 
-{% endfor %}
+</div>
 
-</table>
+<hr>
 
-<h3>Разом: {{ total }} грн</h3>
+<h2>Загальна сума: {{ total }} грн</h2>
 
-<button>Перейти до оплати</button>
+<a href="/" class="checkout-btn">Продовжити покупки</a>
 
 {% else %}
 
-<p>Кошик порожній</p>
+<p>Ваш кошик порожній 😢</p>
+<a href="/" class="checkout-btn">Перейти до товарів</a>
 
 {% endif %}
+
+<!-- Стилі -->
+<style>
+
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cart-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.btn {
+    padding: 5px 12px;
+    background: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #555;
+}
+
+.quantity {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.remove-btn {
+    display: inline-block;
+    margin-top: 10px;
+    color: red;
+    text-decoration: none;
+}
+
+.remove-btn:hover {
+    text-decoration: underline;
+}
+
+.checkout-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background: green;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.checkout-btn:hover {
+    background: darkgreen;
+}
+
+</style>
 
 {% endblock %}
